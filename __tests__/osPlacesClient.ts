@@ -16,7 +16,7 @@ describe('osPlacesClient lookupByPostcode', () => {
       return osPlacesClient
         .lookupByPostcode('XXXX')
         .then(postcodeResponse => {
-          expect(postcodeResponse).toEqual({ addresses: [], statusCode: 404, valid: false })
+          expect(postcodeResponse).toEqual({ addresses: [], httpStatus: 404, valid: false })
         })
     }
   )
@@ -92,7 +92,7 @@ describe('osPlacesClient lookupByPostcode', () => {
                   uprn: '100080489735'
                 }
               ],
-              statusCode: 200,
+              httpStatus: 200,
               valid: true
             }
           )
