@@ -1,6 +1,6 @@
 import { Address } from './address'
 
-export class PostcodeInfoResponse {
+export class AddressInfoResponse {
 
   public addresses: Address[] = [];
 
@@ -8,7 +8,6 @@ export class PostcodeInfoResponse {
     public readonly statusCode: number,
     public readonly valid: boolean
   ) {
-
   }
 
   public addAll(moreAddresses: Address[]) {

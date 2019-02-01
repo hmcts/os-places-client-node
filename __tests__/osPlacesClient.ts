@@ -2,37 +2,37 @@ import * as fs from 'fs'
 import * as nock from 'nock'
 import * as path from 'path'
 import * as request from 'request-promise-native'
-import { PostcodeInfoClient } from '../src'
+import { OSPlacesClient } from '../src'
 
-const mockPostcode = 'http://localhost'
-const postcodeInfoClient: PostcodeInfoClient = new PostcodeInfoClient('APIKEY', request, mockPostcode)
+const mockServer = 'http://localhost'
+const osPlacesClient: OSPlacesClient = new OSPlacesClient('APIKEY', request, mockServer)
 
-describe('postcodeInfoClient', () => {
-  test('should return valid false if no postcode found', () => {
-      nock(mockPostcode)
+describe('osPlacesClient lookupByPostcode', () => {
+  test('should return valid false if no address found', () => {
+      nock(mockServer)
         .get(/\/places\/v1\/addresses\/postcode\?offset=.+&key=.+&postcode=.+/)
         .reply(404, [])
 
-      return postcodeInfoClient
-        .lookupPostcode('XXXX')
+      return osPlacesClient
+        .lookupByPostcode('XXXX')
         .then(postcodeResponse => {
           expect(postcodeResponse).toEqual({ addresses: [], statusCode: 404, valid: false })
         })
     }
   )
 
-  test('should return found postcodes', () => {
-      nock(mockPostcode)
+  test('should return found addresses', () => {
+      nock(mockServer)
         .get(/\/places\/v1\/addresses\/postcode\?offset=0&key=.+&postcode=.+/)
-        .reply(200, fs.readFileSync(path.join(__dirname, 'mockPostcodeLookupResponsePage1.json')))
-      nock(mockPostcode)
+        .reply(200, fs.readFileSync(path.join(__dirname, 'mockLookupByPostcodeResponse_1.json')))
+      nock(mockServer)
         .get(/\/places\/v1\/addresses\/postcode\?offset=1&key=.+&postcode=.+/)
-        .reply(200, fs.readFileSync(path.join(__dirname, 'mockPostcodeLookupResponsePage2.json')))
-      nock(mockPostcode)
+        .reply(200, fs.readFileSync(path.join(__dirname, 'mockLookupByPostcodeResponse_2.json')))
+      nock(mockServer)
         .get(/\/places\/v1\/addresses\/postcode\?offset=2&key=.+&postcode=.+/)
-        .reply(200, fs.readFileSync(path.join(__dirname, 'mockPostcodeLookupResponsePage3.json')))
+        .reply(200, fs.readFileSync(path.join(__dirname, 'mockLookupByPostcodeResponse_3.json')))
 
-      return postcodeInfoClient.lookupPostcode('1234')
+      return osPlacesClient.lookupByPostcode('1234')
         .then(postcodeResponse => {
           expect(postcodeResponse).toEqual(
             {
@@ -101,6 +101,13 @@ describe('postcodeInfoClient', () => {
   )
 
   test('should reject promise if no postcode', () =>
-    expect(postcodeInfoClient.lookupPostcode('')).rejects.toEqual(new Error('Missing required postcode'))
+    expect(osPlacesClient.lookupByPostcode('')).rejects.toEqual(new Error('Missing required postcode'))
   )
+
+  test('should reject promise on server error', () => {
+    nock(mockServer)
+      .get(/.*/)
+      .reply(500)
+    expect(osPlacesClient.lookupByPostcode('AA1 1AA')).rejects.toEqual(new Error('Error with OS Places service'))
+  })
 })
