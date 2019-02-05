@@ -60,29 +60,31 @@ export class OSPlacesClient {
         addressInfoResponse = new AddressInfoResponse(response.statusCode, [], response.statusCode === 200)
       }
 
-      addressInfoResponse.addAll(
-        placesQueryBody.results.map((jsonAddress: any) => {
-            return new Address(
-              jsonAddress.DPA.UPRN,                             // 1
-              jsonAddress.DPA.ORGANISATION_NAME,                // 0..1
-              jsonAddress.DPA.DEPARTMENT_NAME,                  // 0..1
-              jsonAddress.DPA.PO_BOX_NUMBER,                    // 0..1
-              jsonAddress.DPA.BUILDING_NAME,                    // 0..1
-              jsonAddress.DPA.SUB_BUILDING_NAME,                // 0..1
-              jsonAddress.DPA.BUILDING_NUMBER,                  // 0..1
-              jsonAddress.DPA.THOROUGHFARE_NAME,                // 0..1
-              jsonAddress.DPA.DEPENDENT_THOROUGHFARE_NAME,      // 0..1
-              jsonAddress.DPA.DEPENDENT_LOCALITY,               // 0..1
-              jsonAddress.DPA.DOUBLE_DEPENDENT_LOCALITY,        // 0..1
-              jsonAddress.DPA.POST_TOWN,                        // 1
-              jsonAddress.DPA.POSTCODE,                         // 1
-              jsonAddress.DPA.POSTAL_ADDRESS_CODE,              // 1
-              jsonAddress.DPA.ADDRESS,                          // 1
-              new Point('Point', [jsonAddress.DPA.X_COORDINATE, jsonAddress.DPA.Y_COORDINATE])
-            )
-          }
+      if (placesQueryBody.results) {
+        addressInfoResponse.addAll(
+          placesQueryBody.results.map((jsonAddress: any) => {
+              return new Address(
+                jsonAddress.DPA.UPRN,                             // 1
+                jsonAddress.DPA.ORGANISATION_NAME,                // 0..1
+                jsonAddress.DPA.DEPARTMENT_NAME,                  // 0..1
+                jsonAddress.DPA.PO_BOX_NUMBER,                    // 0..1
+                jsonAddress.DPA.BUILDING_NAME,                    // 0..1
+                jsonAddress.DPA.SUB_BUILDING_NAME,                // 0..1
+                jsonAddress.DPA.BUILDING_NUMBER,                  // 0..1
+                jsonAddress.DPA.THOROUGHFARE_NAME,                // 0..1
+                jsonAddress.DPA.DEPENDENT_THOROUGHFARE_NAME,      // 0..1
+                jsonAddress.DPA.DEPENDENT_LOCALITY,               // 0..1
+                jsonAddress.DPA.DOUBLE_DEPENDENT_LOCALITY,        // 0..1
+                jsonAddress.DPA.POST_TOWN,                        // 1
+                jsonAddress.DPA.POSTCODE,                         // 1
+                jsonAddress.DPA.POSTAL_ADDRESS_CODE,              // 1
+                jsonAddress.DPA.ADDRESS,                          // 1
+                new Point('Point', [jsonAddress.DPA.X_COORDINATE, jsonAddress.DPA.Y_COORDINATE])
+              )
+            }
+          )
         )
-      )
+      }
 
       if (header.hasNextPage()) {
         const next = this.getUri(addressInfoResponse.addresses[0].postcode, header.getNextOffset())
