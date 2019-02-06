@@ -29,16 +29,16 @@ $ yarn add @hmcts/os-places-client
 
 Typescript:
 ```ts
-import { PostcodeInfoClient  } from '@hmcts/os-places-client'
+import { OSPlacesClient  } from '@hmcts/os-places-client'
 
-new PostcodeInfoClient('<token here>').lookupPostcode('SN15NB')
+new OSPlacesClient('<token here>').lookupByPostcode('SN15NB')
 
 ```
 
 - Javascript -
 
 ```js
-const PostcodeInfoClient = require('@hmcts/os-places-client').PostcodeInfoClient
+const OSPlacesClient = require('@hmcts/os-places-client').OSPlacesClient
 
-new PostcodeInfoClient('<token here>').lookupPostcode('SN15NB')
+new OSPlacesClient('<token here>').lookupByPostcode('SN15NB')
 ```
