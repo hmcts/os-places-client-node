@@ -53,6 +53,7 @@ describe('osPlacesClient lookupByPostcode', () => {
                   postcodeType: 'D',
                   subBuildingName: undefined,
                   thoroughfareName: 'THE ROAD',
+                  udprn: '22400864',
                   uprn: '100080489735'
                 },
                 {
@@ -71,6 +72,7 @@ describe('osPlacesClient lookupByPostcode', () => {
                   postcodeType: 'D',
                   subBuildingName: undefined,
                   thoroughfareName: 'THE ROAD',
+                  udprn: '22400864',
                   uprn: '100080489735'
                 },
                 {
@@ -89,6 +91,7 @@ describe('osPlacesClient lookupByPostcode', () => {
                   postcodeType: 'D',
                   subBuildingName: undefined,
                   thoroughfareName: 'THE ROAD',
+                  udprn: '22400864',
                   uprn: '100080489735'
                 }
               ],

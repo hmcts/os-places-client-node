@@ -16,6 +16,7 @@ export class Address {
                public readonly postcode: string,
                public readonly postcodeType: string,
                public readonly formattedAddress: string,
-               public readonly point: Point) {
+               public readonly point: Point,
+               public readonly udprn: string | undefined){
   }
 }

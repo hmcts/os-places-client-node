@@ -79,7 +79,8 @@ export class OSPlacesClient {
                 jsonAddress.DPA.POSTCODE,                         // 1
                 jsonAddress.DPA.POSTAL_ADDRESS_CODE,              // 1
                 jsonAddress.DPA.ADDRESS,                          // 1
-                new Point('Point', [jsonAddress.DPA.X_COORDINATE, jsonAddress.DPA.Y_COORDINATE])
+                new Point('Point', [jsonAddress.DPA.X_COORDINATE, jsonAddress.DPA.Y_COORDINATE]),
+                jsonAddress.DPA.UDPRN
               )
             }
           )
