@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/os-places-client",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Ordnance Survey address lookup client (https://apidocs.os.uk/docs/os-places-postcode)",
   "license": "MIT",
   "repository": "https://github.com/hmcts/os-places-client-node",
