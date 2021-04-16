@@ -21,6 +21,7 @@
     "watch:test": "jest --watch"
   },
   "dependencies": {
+    "node": "^15.14.0",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5"
   },
