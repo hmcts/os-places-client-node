@@ -19,8 +19,9 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 10
-      - run: npm ci
-      - run: npm test
+      - run: yarn build
+      - run: yarn lint
+      - run: yarn coverage
 
   publish-npm:
     needs: build
